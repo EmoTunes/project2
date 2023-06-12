@@ -14,7 +14,7 @@
   <script src="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/lib/languages/python.min.js"></script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/a11y-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
 </head>
 
 <body>
@@ -27,19 +27,21 @@
       <textarea class="form-control" rows="3" placeholder="Type your message here" id="message-input"></textarea>
     </div>
     <button type="button" class="btn btn-primary" id="send-btn">Send</button>
+    <button type="button" class="btn btn-primary" id="songs-btn">Go to Songs</button>
   </div>
   <script>
-setInterval(highlightAll,1000);
-// Function to highlight code using highlight.js library
-function highlightAll() {
-  document.querySelectorAll("pre code").forEach(block => {
-    hljs.highlightBlock(block);
-  });
-}
+    setInterval(highlightAll, 1000);
+    // Function to highlight code using highlight.js library
+    function highlightAll() {
+      document.querySelectorAll("pre code").forEach(block => {
+        hljs.highlightBlock(block);
+      });
+    }
 
     const chatBox = document.querySelector(".chat-box");
     const messageInput = document.querySelector("#message-input");
     const sendBtn = document.querySelector("#send-btn");
+    const songsBtn = document.querySelector("#songs-btn");
 
     function addMessage(message, isUserMessage) {
       const messageDiv = document.createElement("div");
@@ -59,10 +61,6 @@ function highlightAll() {
       chatBox.appendChild(messageDiv);
       chatBox.scrollTop = chatBox.scrollHeight;
     }
-
-
-
-
     function sendMessage() {
       const message = messageInput.value.trim();
 
@@ -78,25 +76,25 @@ function highlightAll() {
         })
           .then(response => response.json())
           .then(data => {
-                      messageInput.value = "";
+            messageInput.value = "";
             const messageDiv = document.createElement("div");
             messageDiv.classList.add("mt-3", "p-3", "rounded");
             messageDiv.classList.add("bot-message");
-           
+
             const content = data.content;
-            
+
             // Check if the content has code block
             const hasCodeBlock = content.includes("```");
             if (hasCodeBlock) {
               // If the content has code block, wrap it in a <pre><code> element
               const codeContent = content.replace(/```([\s\S]+?)```/g, '</p><pre><code>$1</code></pre><p>');
 
-             
-              messageDiv.innerHTML = `<img src="{{ url_for('static', filename='images/gpt.jpg') }}" class="bot-icon"><p>${codeContent}</p>`
-             
+
+              messageDiv.innerHTML = `<img src="{{ url_for('static', filename='images/bot.jpg') }}" class="bot-icon"><p>${codeContent}</p>`
+
             }
-            else{
-              messageDiv.innerHTML = `<img src="{{ url_for('static', filename='images/gpt.jpg') }}" class="bot-icon"><p>${content}</p>`
+            else {
+              messageDiv.innerHTML = `<img src="{{ url_for('static', filename='images/bot.jpg') }}" class="bot-icon"><p>${content}</p>`
             }
             chatBox.appendChild(messageDiv);
             chatBox.scrollTop = chatBox.scrollHeight;
@@ -106,13 +104,16 @@ function highlightAll() {
       }
     }
 
-    
+
     sendBtn.addEventListener("click", sendMessage);
     messageInput.addEventListener("keydown", event => {
       if (event.keyCode === 13 && !event.shiftKey) {
         event.preventDefault();
         sendMessage();
       }
+    });
+    songsBtn.addEventListener("click", () => {
+      window.location.href = "/songs";
     });
   </script>
 </body>

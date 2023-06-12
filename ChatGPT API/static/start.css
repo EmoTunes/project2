@@ -1,0 +1,30 @@
+ #root {
+     position: relative;
+     z-index: 0;
+ }
+
+ .join-btn {
+     position: absolute;
+     margin-top: 40px;
+     top: 56.5%;
+     left: 83.3%;
+     transform: translate(-50%, -50%);
+     z-index: 1;
+     /* Increase the z-index to ensure the button is on top */
+     background-color: #e91e63;
+     justify-content: center;
+     color: white;
+     padding: 20px 70px;
+     font-size: 18px;
+     font-weight: bold;
+     border: none;
+     border-radius: 5px;
+     cursor: pointer;
+     transition: background-color 0.3s;
+
+ }
+
+ .join-btn:hover {
+     background-color: #d10c7f;
+     border: 2px solid white;
+ }
