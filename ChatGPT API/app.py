@@ -112,6 +112,9 @@ def display_tracks(page):
     return render_template('songs.html', track_ids=tracks, page=page, tracks_per_page=tracks_per_page, total=len(selected_tracks), playlist=playlist)
     # return render_template('songs.html', track_ids=selected_tracks[0:25])
 
-
+@app.route("/profile", methods=["GET"])
+def profile():
+    chart_data={"labels":["sadness","joy"],"values":[1,1]}
+    return render_template("profile.html", chart_data=chart_data)
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=8000)
